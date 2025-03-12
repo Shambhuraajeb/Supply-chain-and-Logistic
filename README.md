@@ -35,8 +35,8 @@ If your friends are new to GitHub, follow these steps to collaborate efficiently
 
 ### Step 1: Clone the Repository (Each Member)
 ```bash
-git clone https://github.com/your-username/supply-chain-management.git
-cd supply-chain-management
+git clone https://github.com/Shambhuraajeb/Supply-chain-and-Logistic.git
+cd Supply-chain-and-Logistic
 ```
 
 ### Step 2: Create a New Branch with Your Name
@@ -62,11 +62,11 @@ git commit -m "Added inventory module"
 
 ### Step 4: Push Your Branch to GitHub
 ```bash
-git push origin your-name-feature
+git push origin yourname.MAJOR.1
 ```
 Example:
 ```bash
-git push origin john-inventory-module
+git push origin ram.MAJOR.1
 ```
 
 ### Step 5: Create a Pull Request
@@ -82,7 +82,7 @@ This project is licensed under the **MIT License**. Feel free to modify and use 
 ## 🤝 Contributing
 Contributions are welcome! Follow these steps:
 1. Fork the repository
-2. Create a new feature branch (`git checkout -b feature-branch`)
+2. Create a new feature branch (`git checkout -b yourname.MAJOR.1`)
 3. Commit your changes (`git commit -m "Added new feature"`)
 4. Push to the branch (`git push origin feature-branch`)
 5. Open a **Pull Request**
