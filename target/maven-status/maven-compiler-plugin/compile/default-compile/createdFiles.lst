@@ -1,2 +1,9 @@
 com\scm\ERROR\ErrorHandlerServlet.class
+com\scm\Warehouse\Demo.class
+com\scm\Wholeseller\Demo.class
+com\scm\Manufacture\Demo.class
+com\scm\Accountant\Demo.class
+com\scm\Supplier\Demo.class
+com\scm\Retailer\Demo.class
 com\scm\Hello.class
+com\scm\Transporter\Demo.class
