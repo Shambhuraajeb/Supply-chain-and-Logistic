@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Order Form</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100">
+  <!-- Navbar -->
+  <nav class="bg-white text-black">
+    <div class="container mx-auto flex items-center justify-between p-4">
+      <h1 class="text-xl font-bold">Production Hub</h1>
+
+    </div>
+  </nav>
+
+  <!-- Form Container -->
+  <div class="container mx-auto p-6">
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-4 text-gray-800">Create New Order for Raw Materials</h2>
+      <form action="#" method="POST">
+        <!-- Supplier Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Supplier Name</label>
+            <select name="supplier_id" id=""
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+              <option value="default">Select Name of Supplier</option>
+            </select>
+            <!--<input type="text" name="supplier_name" placeholder="Enter supplier name" class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">-->
+          </div>
+          
+        </div>
+
+        <!-- Order Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Order Date</label>
+            <input type="date" name="order_date"
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Expected Delivery Date</label>
+            <input type="date" name="expected_delivery_date"
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          </div>
+        </div>
+
+        <!-- Raw Materials Details -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700">Raw Materials</label>
+          <table class="min-w-full border mt-2">
+            <thead class="bg-gray-200">
+              <tr>
+                <th class="border px-4 py-2 text-left">Material Name</th>
+                <th class="border px-4 py-2 text-left">Material Code</th>
+                <th class="border px-4 py-2 text-left">Quantity</th>
+                <th class="border px-4 py-2 text-left">UOM</th>
+                <th class="border px-4 py-2 text-left">Price/Unit</th>
+                <th class="border px-4 py-2 text-left">Total Cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="border px-4 py-2">
+                  <select name="material_name" class="w-full p-1 border border-gray-300 rounded-md">
+                    <option value="">Select Material</option>
+                  </select>
+                </td>
+                <td class="border px-4 py-2">
+                  <input type="text" name="material_code" placeholder="Code"
+                    class="w-full p-1 border border-gray-300 rounded-md" disabled>
+                </td>
+                <td class="border px-4 py-2">
+                  <input type="number" name="quantity" placeholder="Quantity"
+                    class="w-full p-1 border border-gray-300 rounded-md">
+                </td>
+                <td class="border px-4 py-2">
+                  <select name="uom" class="w-full p-1 border border-gray-300 rounded-md">
+                    <option value="kg">Kg</option>
+                    <option value="liters">Liters</option>
+                    <option value="meters">Meters</option>
+                  </select>
+                </td>
+                <td class="border px-4 py-2"><input type="number" name="price_per_unit" placeholder="Price"
+                    class="w-full p-1 border border-gray-300 rounded-md" disabled></td>
+                <td class="border px-4 py-2"><input type="number" name="total_cost" placeholder="Total"
+                    class="w-full p-1 border border-gray-300 rounded-md" disabled></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Payment and Delivery Details -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Payment Terms</label>
+            <input type="text" name="payment_terms" placeholder="e.g., 50% advance, 50% on delivery"
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700">Delivery Location</label>
+            <input type="text" name="delivery_location" placeholder="Enter delivery location"
+              class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500">
+          </div>
+        </div>
+
+        <!-- Special Instructions -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700">Special Instructions</label>
+          <textarea name="special_instructions" rows="4" placeholder="Enter any special instructions here"
+            class="mt-1 block w-full p-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"></textarea>
+        </div>
+
+        <!-- Agreement Section -->
+        <div class="mb-6">
+          <label class="block text-sm font-medium text-gray-700">Agreement</label>
+          <div class="mt-2 flex items-start">
+            <input type="checkbox" id="agreement" name="agreement"
+              class="h-5 w-5 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+            <label for="agreement" class="ml-3 text-gray-700">
+              I confirm that the order details are accurate and agree to send this order to the supplier.
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="flex justify-end">
+          <button type="submit" class="px-6 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700">
+            Create Order
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</body>
+
+</html>
