@@ -24,10 +24,7 @@ A **professional and efficient Supply Chain Management & Logistics System** desi
 
 ## 📂 Project Structure
 ```
-/frontend   → Contains HTML, CSS, JavaScript files  
-/backend    → Java backend files  
-/database   → PostgreSQL schema & queries  
-/docs       → Documentation & API specs  
+~It will shortly updated~
 ```
 
 ## 🛠️ GitHub Workflow for Team Members
