@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI-generated website">
+    <meta name="theme-color" content="#ffffff">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="robots" content="index, follow">
+
+    <!-- Performance optimization: Preload critical resources -->
+    <link rel="preload" href="https://cdn.tailwindcss.com" as="script">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        as="style">
+
+    <!-- {headerScripts} -->
+
+    <!-- Core CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#525252',
+                        secondary: '#404040',
+                        accent: '#737373',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'system-ui'],
+                        heading: ['Montserrat', 'Inter'],
+                    },
+                    spacing: {
+                        '18': '4.5rem',
+                        '22': '5.5rem',
+                        '30': '7.5rem',
+                    },
+                    maxWidth: {
+                        '8xl': '88rem',
+                        '9xl': '96rem',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-in',
+                        'fade-out': 'fadeOut 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        fadeOut: {
+                            '0%': { opacity: '1' },
+                            '100%': { opacity: '0' },
+                        },
+                    },
+                    aspectRatio: {
+                        'portrait': '3/4',
+                        'landscape': '4/3',
+                        'ultrawide': '21/9',
+                    },
+                },
+            },
+            variants: {
+                extend: {
+                    opacity: ['disabled'],
+                    cursor: ['disabled'],
+                    backgroundColor: ['active', 'disabled'],
+                    textColor: ['active', 'disabled'],
+                },
+            },
+        }
+    </script>
+
+    <!-- Utilities and Components -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/3.13.3/cdn.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.45.1/apexcharts.min.js"></script>
+
+    <!-- Optimized Font Loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Base Styles -->
+    <style>
+        * {
+            -ms-overflow-style: none;
+            /* IE and Edge */
+            scrollbar-width: none;
+            /* Firefox */
+        }
+
+        *::-webkit-scrollbar {
+            display: none;
+        }
+
+        * {
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        :focus-visible {
+            outline: 2px solid currentColor;
+            outline-offset: 2px;
+        }
+
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+
+            a[href]:after {
+                content: " (" attr(href) ")";
+            }
+        }
+    </style>
+
+    <!-- Enhanced Image Handler -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        if (img.dataset.src) {
+                            const tempImage = new Image();
+                            tempImage.onload = () => {
+                                img.src = img.dataset.src;
+                                img.classList.remove('opacity-0');
+                                img.classList.add('opacity-100');
+                            };
+                            tempImage.src = img.dataset.src;
+                            img.removeAttribute('data-src');
+                            observer.unobserve(img);
+                        }
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px',
+                threshold: 0.01
+            });
+
+            const loadImage = (img) => {
+                if ('loading' in HTMLImageElement.prototype) {
+                    img.loading = 'lazy';
+                }
+
+                img.classList.add('transition-opacity', 'duration-300', 'opacity-0');
+
+                img.onerror = () => {
+                    const width = img.getAttribute('width') || img.clientWidth || 300;
+                    const height = img.getAttribute('height') || img.clientHeight || 200;
+                    img.src = `https://placehold.co/${width}x${height}/DEDEDE/555555?text=Image+Unavailable`;
+                    img.alt = 'Image unavailable';
+                    img.classList.remove('opacity-0');
+                    img.classList.add('opacity-100', 'error-image');
+                };
+
+                if (img.dataset.src) {
+                    imageObserver.observe(img);
+                } else {
+                    img.classList.remove('opacity-0');
+                    img.classList.add('opacity-100');
+                }
+            };
+
+            document.querySelectorAll('img[data-src], img:not([data-src])').forEach(loadImage);
+
+            new MutationObserver((mutations) => {
+                mutations.forEach(mutation => {
+                    mutation.addedNodes.forEach(node => {
+                        if (node.nodeType === 1) {
+                            if (node.tagName === 'IMG') {
+                                loadImage(node);
+                            }
+                            node.querySelectorAll('img').forEach(loadImage);
+                        }
+                    });
+                });
+            }).observe(document.body, {
+                childList: true,
+                subtree: true
+            });
+        });
+
+        if ('performance' in window && 'PerformanceObserver' in window) {
+            const observer = new PerformanceObserver((list) => {
+                const entries = list.getEntries();
+                entries.forEach((entry) => {
+                    if (entry.entryType === 'largest-contentful-paint') {
+                        // console.log(`LCP: ${entry.startTime}ms`);
+                    }
+                    if (entry.entryType === 'first-input') {
+                        // console.log(`FID: ${entry.processingStart - entry.startTime}ms`);
+                    }
+                    if (entry.entryType === 'layout-shift') {
+                        // console.log(`CLS: ${entry.value}`);
+                    }
+                });
+            });
+
+            observer.observe({ entryTypes: ['largest-contentful-paint', 'first-input', 'layout-shift'] });
+
+            window.addEventListener('load', () => {
+                const timing = performance.getEntriesByType('navigation')[0];
+                console.log({
+                    'DNS Lookup': timing.domainLookupEnd - timing.domainLookupStart,
+                    'TCP Connection': timing.connectEnd - timing.connectStart,
+                    'DOM Content Loaded': timing.domContentLoadedEventEnd - timing.navigationStart,
+                    'Page Load': timing.loadEventEnd - timing.navigationStart
+                });
+            });
+        }
+
+        window.addEventListener('online', () => {
+            document.body.classList.remove('offline');
+            console.log('Connection restored');
+        });
+
+        window.addEventListener('offline', () => {
+            document.body.classList.add('offline');
+            console.log('Connection lost');
+        });
+    </script>
+</head>
+
+<body class="antialiased text-gray-800 min-h-screen flex flex-col">
+
+
+</body>
+
+</html>
+<element id="5d1b1ac4-52fe-452d-a142-5593c18720e9" data-section-id="5d1b1ac4-52fe-452d-a142-5593c18720e9">
+
+    <htmlCode>
+        <!DOCTYPE html>
+        <html lang="en">
+
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Production Dashboard</title>
+            <script src="https://cdn.tailwindcss.com"></script>
+            <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+            <style>
+                [x-cloak] {
+                    display: none !important;
+                }
+
+                html {
+                    scroll-behavior: smooth;
+                }
+
+                .active-link {
+                    @apply bg-blue-500 text-white;
+                    transition: all 0.3s ease;
+                }
+
+                .nav-link:hover {
+                    @apply bg-gray-100;
+                    transition: all 0.3s ease;
+                }
+            </style>
+        </head>
+
+        <body class="bg-[#E5E7EB]">
+            <div class="flex" id="root">
+                <div x-data="{ isOpen: false }">
+                    <nav class="fixed h-screen w-64 bg-white border-r border-gray-200 hidden lg:block">
+                        <div class="p-4 border-b border-gray-200">
+                            <div class="text-xl font-bold text-gray-800">Production Hub</div>
+                        </div>
+
+                        <div class="py-4">
+                            
+                            <a href="#materials"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                </svg>
+                                Materials
+                            </a>
+                            <a href="#production"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z">
+                                    </path>
+                                </svg>
+                                Production
+                            </a>
+                            <a href="#customer-orders"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4">
+                                    </path>
+                                </svg>
+                                Customers
+                            </a>
+                            <a href="#payments"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4">
+                                    </path>
+                                </svg>
+                                Payments
+                            </a>
+                            <a href="#demand"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                                    </path>
+                                </svg>
+                                Demand
+                            </a>
+                            <a href="#analytics"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                Analytics
+                            </a>
+                            <a href="#reports"
+                                class="nav-link flex items-center px-4 py-2 text-gray-700 hover:bg-gray-100">
+                                <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M16 8v8m-4-5v5m-4-2v2m-2 4h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                    </path>
+                                </svg>
+                                Reports
+                            </a>
+                        </div>
+
+                        <div class="absolute bottom-0 w-full border-t border-gray-200">
+                            <div class="p-4">
+                                <div class="flex items-center">
+                                    <img src="https://avatar.iran.liara.run/public" alt="User"
+                                        class="w-8 h-8 rounded-full">
+                                    <div class="ml-3">
+                                        <p class="text-sm font-medium text-gray-700">John Doe</p>
+                                        <p class="text-xs text-gray-500">Production Manager</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </nav>
+
+                    <!-- Mobile menu button -->
+                    <button type="button"
+                        class="lg:hidden fixed top-4 right-4 z-50 p-2 rounded-lg bg-gray-100 text-gray-600 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-blue-500"
+                        @click="isOpen = !isOpen" aria-controls="mobile-menu" :aria-expanded="isOpen">
+                        <svg x-show="!isOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                        <svg x-show="isOpen" x-cloak class="w-6 h-6" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+
+                    <!-- Mobile menu -->
+                    <div x-show="isOpen" x-cloak class="lg:hidden fixed inset-0 bg-gray-800/80 backdrop-blur-sm z-40"
+                        @click.away="isOpen = false" @resize.window="if (window.innerWidth > 1024) isOpen = false"
+                        x-transition:enter="transition ease-out duration-100 transform"
+                        x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100"
+                        x-transition:leave="transition ease-in duration-75 transform"
+                        x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95">
+                        <div class="fixed inset-y-0 left-0 w-64 bg-white shadow-lg">
+                            <!-- Mobile menu content - same as desktop but with adjusted styling -->
+                            <div class="p-4 border-b border-gray-200">
+                                <div class="text-xl font-bold text-gray-800">Production Hub</div>
+                            </div>
+
+                            <!-- Same navigation items as desktop -->
+                            <div class="py-4">
+                                <!-- Duplicate the navigation items here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <main class="flex-1 ml-0 lg:ml-64 min-h-screen overflow-y-auto">
+                    <!-- Header -->
+                    <header class="sticky top-0 z-30 bg-white border-b border-gray-200 shadow-sm">
+                        <div class="px-4 sm:px-6 lg:px-8">
+                            <div class="flex items-center justify-between h-16">
+                                <div class="flex items-center flex-1">
+                                    <div class="flex-shrink-0">
+                                        <h1 class="text-xl font-semibold text-gray-900">Production Dashboard</h1>
+                                    </div>
+                                </div>
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0">
+                                        <button type="button"
+                                            class="p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                            <span class="sr-only">View notifications</span>
+                                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                                                </path>
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </header>
+
+                    <MountPoint>
+
+                        <script>
+                            // Active link handling
+                            document.addEventListener('DOMContentLoaded', function () {
+                                const navLinks = document.querySelectorAll('.nav-link');
+
+                                function setActiveLink() {
+                                    const hash = window.location.hash || '#dashboard';
+                                    navLinks.forEach(link => {
+                                        if (link.getAttribute('href') === hash) {
+                                            link.classList.add('active-link');
+                                        } else {
+                                            link.classList.remove('active-link');
+                                        }
+                                    });
+                                }
+
+                                window.addEventListener('hashchange', setActiveLink);
+                                setActiveLink();
+                            });
+                        </script>
+</element>
+<element id="655ee798-f120-4389-859f-70a99fa9d268" data-section-id="655ee798-f120-4389-859f-70a99fa9d268">
+
+
+    <htmlcode id="el-7julendb">
+        <section id="materials" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6" id="el-2n65rzwd">
+                <h2 class="text-2xl font-bold text-gray-800" id="el-hr6w6zjn">Raw Materials Management</h2>
+                <p class="text-gray-600" id="el-90kta2rw">Track and manage raw material inventory and orders</p>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6" id="el-g65r7whh">
+                <button
+                    class="flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    id="el-e15ja6ad" onclick="window.location.href='Order.html'">
+                    <span class="mr-2">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </span>
+                    Create New Order
+                </button>
+                <button
+                    class="flex items-center justify-center p-4 bg-white border border-gray-200 rounded-lg hover:border-blue-500 hover:bg-blue-50 transition-all duration-300 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                    id="el-e15ja6ad" onclick="window.location.href='Order.html'">
+                    <span class="mr-2">
+                        <svg class="w-5 h-5 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                        </svg>
+                    </span>
+                    Recived Raw Material Orders
+                </button>
+            </div>
+            
+            <!-- Main Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6" id="el-051phl9y">
+                <!-- Inventory Status -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200" id="el-izxcdmtl">
+                    <h3 class="text-lg font-semibold mb-4" id="el-0cuw3kon">Current Inventory Status</h3>
+                    <div class="space-y-4" id="el-5n9snwzb">
+                        <div class="flex justify-between items-center" id="el-2irbplws">
+                            <span class="text-gray-600" id="el-283wjelo">Raw Material A</span>
+                            <span class="text-green-500 font-medium" id="el-j0irwjqj">87% (870 units)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2" id="el-fcex2534">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 87%" id="el-appmc2rx"></div>
+                        </div>
+                        <div class="flex justify-between items-center" id="el-htaz367w">
+                            <span class="text-gray-600" id="el-54d7b8fe">Raw Material B</span>
+                            <span class="text-yellow-500 font-medium" id="el-0xafj6ew">45% (450 units)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2" id="el-dpf1amtx">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 45%" id="el-o44pj4l9"></div>
+                        </div>
+                        <div class="flex justify-between items-center" id="el-sn8gzjku">
+                            <span class="text-gray-600" id="el-mlzhz5nq">Raw Material C</span>
+                            <span class="text-red-500 font-medium" id="el-ij70u8dp">12% (120 units)</span>
+                        </div>
+                        <div class="w-full bg-gray-200 rounded-full h-2" id="el-e0qt1sxu">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 12%" id="el-j20tgkcf"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Orders -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200" id="el-wwwxmupa">
+                    <h3 class="text-lg font-semibold mb-4" id="el-xw0sv405">Recent Orders</h3>
+                    <div class="space-y-4" id="el-ixzplxfq">
+                        <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg" id="el-f5npmlnm">
+                            <div id="el-rqojfkvg">
+                                <p class="font-medium" id="el-4hqajlpj">Order #12345</p>
+                                <p class="text-sm text-gray-500" id="el-4pq0vv06">Raw Material A - 1000 units</p>
+                            </div>
+                            <span class="px-3 py-1 text-sm bg-green-100 text-green-800 rounded-full"
+                                id="el-p5kwmf9s">Delivered</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Suppliers Table -->
+            <div class="mt-6 bg-white rounded-lg border border-gray-200" id="el-wff9pm39">
+                <div class="p-6" id="el-u1qdxrj8">
+                    <h3 class="text-lg font-semibold mb-4" id="el-0tf8uoc0">Suppliers Details</h3>
+                    <div class="overflow-x-auto" id="el-y5nuuydh">
+                        <table class="min-w-full divide-y divide-gray-200" id="el-v696nye6">
+                            <thead id="el-izk4pjc0">
+                                <tr id="el-mdqpj32f">
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Supplier Name</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Material Supplied</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Performance Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200" id="el-xkdxoju9">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Supplier A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">+91-9876543210</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Raw Material A</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">98%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Supplier B</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">+91-9123456789</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Raw Material B</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-500">95%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </htmlcode>
+</element>
+<element id="2ce9351c-84ff-4396-9ba8-f6ab906ff2e6" data-section-id="2ce9351c-84ff-4396-9ba8-f6ab906ff2e6">
+
+    <htmlCode>
+        <section id="production" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Production Overview</h2>
+                <p class="text-gray-600">Monitor and manage production processes</p>
+            </div>
+
+            <!-- Production Status Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Active Production Lines</p>
+                            <p class="text-2xl font-bold text-gray-800">8/10</p>
+                        </div>
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Today's Output</p>
+                            <p class="text-2xl font-bold text-gray-800">2,450</p>
+                        </div>
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Efficiency Rate</p>
+                            <p class="text-2xl font-bold text-gray-800">92%</p>
+                        </div>
+                        <div class="bg-yellow-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Quality Rate</p>
+                            <p class="text-2xl font-bold text-gray-800">98.5%</p>
+                        </div>
+                        <div class="bg-purple-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+           
+
+            <!-- Production Issues and Quality Control -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <!-- Production Issues -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4">Active Issues</h3>
+                    <div class="space-y-4">
+                        <div class="p-4 bg-red-50 border border-red-200 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-red-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-red-800">Technical Issue - Line 4</h3>
+                                    <div class="mt-2 text-sm text-red-700">
+                                        <p>Machine malfunction detected. Maintenance team dispatched.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                                    </svg>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="text-sm font-medium text-yellow-800">Material Shortage Warning</h3>
+                                    <div class="mt-2 text-sm text-yellow-700">
+                                        <p>Raw material B running low. Order placed.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quality Control Metrics -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4">Quality Control Metrics</h3>
+                    <div class="space-y-6">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">Defect Rate</span>
+                                <span class="text-sm font-medium text-gray-700">1.5%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 1.5%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">First Pass Yield</span>
+                                <span class="text-sm font-medium text-gray-700">97%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-blue-500 h-2 rounded-full" style="width: 97%"></div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="text-sm font-medium text-gray-700">Customer Returns</span>
+                                <span class="text-sm font-medium text-gray-700">0.3%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-2">
+                                <div class="bg-green-500 h-2 rounded-full" style="width: 0.3%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </htmlCode>
+</element>
+<element id="774c2c2c-6b53-4613-9403-e05ea5917aef" data-section-id="774c2c2c-6b53-4613-9403-e05ea5917aef">
+    <htmlCode>
+        <section id="customer-orders" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Customer Orders</h2>
+                <p class="text-gray-600">Manage customer orders and forward them to the warehouse.</p>
+            </div>
+        
+            <!-- Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Total Orders</p>
+                            <p class="text-2xl font-bold text-gray-800">1,245</p>
+                        </div>
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M3 10h11M9 21V3M17 16l4 4m0 0l-4 4m4-4H9" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Pending Orders</p>
+                            <p class="text-2xl font-bold text-yellow-600">45</p>
+                        </div>
+                        <div class="bg-yellow-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">New Requests</p>
+                            <p class="text-2xl font-bold text-red-600">12</p>
+                        </div>
+                        <div class="bg-red-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- New Customer Requests -->
+            <div class="bg-white p-6 rounded-lg border border-gray-200 mb-6">
+                <h3 class="text-lg font-semibold mb-4">New Customer Requests</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Name</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Email</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Price</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">John Doe</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">john@example.com</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Laptop</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">2</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$2000</td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    <button class="px-3 py-1 bg-green-500 text-white rounded-lg">Approve</button>
+                                    <button class="px-3 py-1 bg-red-500 text-white rounded-lg">Reject</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        
+            <!-- Order List -->
+            <div class="bg-white rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Confirmed Orders</h3>
+                        <div class="flex space-x-2">
+                            <button class="px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200">Filter</button>
+                            <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Export</button>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Order ID</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Product</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Quantity</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Total Price</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">ORD1234</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Alice Brown</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">Phone</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">1</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$700</td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <button class="px-3 py-1 bg-blue-500 text-white rounded-lg">Accept & Forward</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>        
+    </htmlCode>
+</element>
+
+<element>
+    <htmlCode>
+        <section id="payments" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Payments</h2>
+                <p class="text-gray-600">Manage pending and received payments.</p>
+            </div>
+        
+            <!-- Payment Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Total Received</p>
+                            <p class="text-2xl font-bold text-green-600">$50,000</p>
+                        </div>
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M5 13l4 4L19 7" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Pending Payments</p>
+                            <p class="text-2xl font-bold text-yellow-600">$8,500</p>
+                        </div>
+                        <div class="bg-yellow-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <!-- Payment Table -->
+            <div class="bg-white p-6 rounded-lg border border-gray-200">
+                <h3 class="text-lg font-semibold mb-4">Recent Transactions</h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                            <tr>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Transaction ID</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Customer</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Amount</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200">
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TXN56789</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">Jane Doe</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$1,500</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">Completed</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">March 1, 2025</td>
+                            </tr>
+                            <tr>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">TXN67890</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">John Smith</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">$2,000</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-yellow-600">Pending</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">March 2, 2025</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+        
+    </htmlCode>
+</element>
+<element id="0c373ef6-56eb-491c-9158-2ed34441b9a9" data-section-id="0c373ef6-56eb-491c-9158-2ed34441b9a9">
+
+    <htmlCode>
+        <section id="demand" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">Demand Forecasting</h2>
+                <p class="text-gray-600">Analyze and predict future demand patterns</p>
+            </div>
+
+            <!-- Forecast Overview Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Predicted Monthly Demand</p>
+                            <p class="text-2xl font-bold text-gray-800">24,500</p>
+                            <p class="text-sm text-green-600">↑ 12% vs last month</p>
+                        </div>
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Forecast Accuracy</p>
+                            <p class="text-2xl font-bold text-gray-800">92%</p>
+                            <p class="text-sm text-green-600">↑ 3% improvement</p>
+                        </div>
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Lead Time Average</p>
+                            <p class="text-2xl font-bold text-gray-800">4.2 days</p>
+                            <p class="text-sm text-red-600">↓ 0.3 days</p>
+                        </div>
+                        <div class="bg-yellow-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Safety Stock Level</p>
+                            <p class="text-2xl font-bold text-gray-800">15%</p>
+                            <p class="text-sm text-blue-600">Optimal</p>
+                        </div>
+                        <div class="bg-purple-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Demand Trends and Forecasting -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+                <!-- Monthly Trends -->
+                <div class="bg-white p-6 rounded-lg border border-gray-200">
+                    <h3 class="text-lg font-semibold mb-4">Monthly Demand Trends</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium">Product A</p>
+                                <p class="text-xs text-gray-500">Forecasted: 12,000 units</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-green-600 text-sm mr-2">↑ 8%</span>
+                                <div class="w-24 h-2 bg-gray-200 rounded-full">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 80%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium">Product B</p>
+                                <p class="text-xs text-gray-500">Forecasted: 8,500 units</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-red-600 text-sm mr-2">↓ 3%</span>
+                                <div class="w-24 h-2 bg-gray-200 rounded-full">
+                                    <div class="bg-red-500 h-2 rounded-full" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-sm font-medium">Product C</p>
+                                <p class="text-xs text-gray-500">Forecasted: 4,000 units</p>
+                            </div>
+                            <div class="flex items-center">
+                                <span class="text-green-600 text-sm mr-2">↑ 12%</span>
+                                <div class="w-24 h-2 bg-gray-200 rounded-full">
+                                    <div class="bg-green-500 h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+            </div>
+
+            <!-- Forecast Details Table -->
+            <div class="bg-white rounded-lg border border-gray-200">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 class="text-lg font-semibold">Detailed Forecast Analysis</h3>
+                        <button class="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600">Export
+                            Report</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <thead>
+                                <tr>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Product</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Current Demand</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Forecasted Demand</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Growth</th>
+                                    <th
+                                        class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                        Confidence</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-200">
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product A
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">11,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">12,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+8%</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">95%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product B
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">8,800</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">8,500</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-red-600">-3%</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">92%</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">Product C
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">3,600</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">4,000</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-green-600">+12%</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">89%</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </htmlCode>
+</element>
+<element id="f4e721ae-db8c-4c49-ac7e-b071dafb4494" data-section-id="f4e721ae-db8c-4c49-ac7e-b071dafb4494">
+
+    <htmlCode>
+        <section id="analytics" class="p-6">
+            <!-- Header Section -->
+            <div class="mb-6">
+                <h2 class="text-2xl font-bold text-gray-800">KPI Analytics</h2>
+                <p class="text-gray-600">Performance metrics and key indicators</p>
+            </div>
+
+            <!-- Key Performance Indicators -->
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Overall Equipment Effectiveness</p>
+                            <p class="text-2xl font-bold text-gray-800">87.5%</p>
+                            <p class="text-sm text-green-600">↑ 2.3%</p>
+                        </div>
+                        <div class="bg-blue-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Production Yield</p>
+                            <p class="text-2xl font-bold text-gray-800">94.2%</p>
+                            <p class="text-sm text-green-600">↑ 1.5%</p>
+                        </div>
+                        <div class="bg-green-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Cycle Time</p>
+                            <p class="text-2xl font-bold text-gray-800">45 min</p>
+                            <p class="text-sm text-red-600">↑ 3 min</p>
+                        </div>
+                        <div class="bg-yellow-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded-lg border border-gray-200">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-sm text-gray-500">Quality Rate</p>
+                            <p class="text-2xl font-bold text-gray-800">98.7%</p>
+                            <p class="text-sm text-green-600">↑ 0.5%</p>
+                        </div>
+                        <div class="bg-purple-100 p-2 rounded-lg">
+                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+          
+        </section>
+    </htmlCode>
+</element>
+<element id="1ac25df3-891a-4627-b62b-dfd5e53ada25" data-section-id="1ac25df3-891a-4627-b62b-dfd5e53ada25">
+
+    <htmlCode>
+        <div id="root">
+            <section id="reports" class="page-section min-h-screen bg-white text-black p-6">
+                <div class="max-w-7xl mx-auto">
+                    <div class="mb-8">
+                        <div class="flex justify-between items-center mb-6">
+                            <h2 class="text-2xl font-bold">Production Reports</h2>
+                            <div class="flex space-x-4">
+                                <button class="px-4 py-2 bg-blue-500 hover:bg-blue-600 rounded-lg flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    Export Reports
+                                </button>
+                                <button class="px-4 py-2 bg-green-500 hover:bg-green-600 rounded-lg flex items-center">
+                                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    New Report
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Report Filters -->
+                        <div class="bg-white rounded-lg p-6 border border-neutral-700/30 mb-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Date Range</label>
+                                    <select class="w-full bg-white border border-neutral-600 rounded-lg px-3 py-2">
+                                        <option>Last 7 Days</option>
+                                        <option>Last 30 Days</option>
+                                        <option>Last Quarter</option>
+                                        <option>Custom Range</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Production Line</label>
+                                    <select class="w-full bg-white border border-neutral-600 rounded-lg px-3 py-2">
+                                        <option>All Lines</option>
+                                        <option>Line A</option>
+                                        <option>Line B</option>
+                                        <option>Line C</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Report Type</label>
+                                    <select class="w-full bg-white border border-neutral-600 rounded-lg px-3 py-2">
+                                        <option>Production Summary</option>
+                                        <option>Quality Analysis</option>
+                                        <option>Efficiency Metrics</option>
+                                        <option>Cost Analysis</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium mb-2">Status</label>
+                                    <select class="w-full bg-white border border-neutral-600 rounded-lg px-3 py-2">
+                                        <option>All Status</option>
+                                        <option>Completed</option>
+                                        <option>In Progress</option>
+                                        <option>Pending</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Reports Table -->
+                        <div class="bg-white rounded-lg p-6 border border-neutral-700/30 mb-6">
+                            <h3 class="text-lg font-semibold mb-4">Recent Reports</h3>
+                            <div class="overflow-x-auto">
+                                <table class="min-w-full divide-y divide-white">
+                                    <thead>
+                                        <tr>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                                                Report Name</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                                                Type</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                                                Date Generated</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                                                Status</th>
+                                            <th
+                                                class="px-6 py-3 text-left text-xs font-medium text-neutral-400 uppercase tracking-wider">
+                                                Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="divide-y divide-white">
+                                        <tr>
+                                            <td class="px-6 py-4">Monthly Production Summary</td>
+                                            <td class="px-6 py-4">Production Summary</td>
+                                            <td class="px-6 py-4">2024-01-20</td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-2 py-1 text-xs rounded-full bg-green-400/20 text-green-400">Completed</span>
+                                            </td>
+                                            <td class="px-6 py-4">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300">View</button>
+                                                    <button class="text-blue-400 hover:text-blue-300">Download</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="px-6 py-4">Q4 Efficiency Analysis</td>
+                                            <td class="px-6 py-4">Efficiency Metrics</td>
+                                            <td class="px-6 py-4">2024-01-19</td>
+                                            <td class="px-6 py-4"><span
+                                                    class="px-2 py-1 text-xs rounded-full bg-yellow-400/20 text-yellow-400">In
+                                                    Progress</span></td>
+                                            <td class="px-6 py-4">
+                                                <div class="flex space-x-2">
+                                                    <button class="text-blue-400 hover:text-blue-300">View</button>
+                                                    <button
+                                                        class="text-neutral-500 cursor-not-allowed">Download</button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Scheduled Reports -->
+                        <div class="bg-white rounded-lg p-6 border border-neutral-700/30">
+                            <h3 class="text-lg font-semibold mb-4">Scheduled Reports</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="bg-white p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="font-medium">Daily Production Report</h4>
+                                            <p class="text-sm text-neutral-400">Generates at 23:00 daily</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/30 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="font-medium">Weekly KPI Summary</h4>
+                                            <p class="text-sm text-neutral-400">Generates every Monday at 06:00</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="bg-white/30 p-4 rounded-lg">
+                                    <div class="flex justify-between items-start">
+                                        <div>
+                                            <h4 class="font-medium">Monthly Performance Analysis</h4>
+                                            <p class="text-sm text-neutral-400">Generates 1st of every month</p>
+                                        </div>
+                                        <div class="flex items-center">
+                                            <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </htmlCode>
+</element>
+<div id="page_complete">
+    <script>
+        console.log('Page complete');
+    </script>
+    </body>
+
+    </html>
