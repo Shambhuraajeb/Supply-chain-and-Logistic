@@ -1,5 +1,4 @@
-# Ignore Maven target directories (build output)
-target/
+
 
 # Eclipse project files
 *.classpath
