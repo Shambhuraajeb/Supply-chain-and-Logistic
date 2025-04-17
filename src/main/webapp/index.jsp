@@ -202,7 +202,7 @@
             </svg>
           </button>
           <a href="#login" class="px-4 py-2 text-gray-700 hover:text-[#1E3A8A] dark:text-gray-300 dark:hover:text-[#10B981] border border-gray-300 dark:border-gray-700 rounded-md transition-colors">Login</a>
-          <a href="#signup" class="px-4 py-2 bg-[#1E3A8A] hover:bg-[#152a65] text-white dark:bg-[#10B981] dark:hover:bg-[#0e9d6d] rounded-md transition-colors">Sign Up</a>
+          <a href="transport/CMT_signup.html" class="px-4 py-2 bg-[#1E3A8A] hover:bg-[#152a65] text-white dark:bg-[#10B981] dark:hover:bg-[#0e9d6d] rounded-md transition-colors">Sign Up</a>
         </div>
         
         

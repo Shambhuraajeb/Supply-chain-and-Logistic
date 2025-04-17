@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Signup</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #f3f4f6, #c9d6ff);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        body::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            right: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(106, 17, 203, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        body::after {
+            content: '';
+            position: absolute;
+            bottom: -50px;
+            left: -50px;
+            width: 300px;
+            height: 300px;
+            background: rgba(106, 17, 203, 0.1);
+            border-radius: 50%;
+            z-index: -1;
+        }
+
+        .signup-container {
+            background-color: #ffffff;
+            padding: 40px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #273aa2;
+            margin-bottom: 20px;
+            text-shadow: 4px 4px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .progress {
+            height: 100%;
+            width: 50%;
+            background-color: #980993;
+            transition: width 0.3s;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+            display: flex;
+            align-items: center;
+        }
+
+        label img {
+            margin-right: 8px;
+            width: 20px;
+            height: 20px;
+        }
+
+        input,
+        select,
+        textarea,
+        button {
+            margin-bottom: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button {
+            background-color: #980993;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #284cdc;
+        }
+
+        .step {
+            display: none;
+        }
+
+        .step.active {
+            display: block;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            gap: 100px;
+        }
+
+        button[type="submit"] {
+            margin-left: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="signup-container">
+        <h1>Supplier Signup</h1>
+        <div class="progress-bar">
+            <div class="progress" id="progress"></div>
+        </div>
+        <form id="signupForm" action="../SupplierSignup" method="post">
+            <div class="step active" id="step1">
+                <div class="form-group">
+                    <label for="supplierName"><img src="https://img.icons8.com/ios-filled/50/000000/user.png"
+                            alt="Supplier Name"> Supplier Name</label>
+                    <input type="text" id="supplierName" name="supplierName" placeholder="Enter your name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email"><img src="https://img.icons8.com/ios-filled/50/000000/email.png" alt="Email">
+                        Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+					<small id="emailError" style="color: red; display: none;"></small>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="phone"><img src="https://img.icons8.com/ios-filled/50/000000/phone.png" alt="Phone">
+                        Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+					<small id="phoneError" style="color: red; display: none;"></small>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="password"><img src="https://img.icons8.com/ios-filled/50/000000/lock.png"
+                            alt="Password"> Password</label>
+                    <input type="password" id="password" name="password" placeholder="Create a password" required>
+					<small id="passwordError" style="color: red; display: none;"></small>
+
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="nextStep()">Next</button>
+                </div>
+            </div>
+
+            <div class="step" id="step2">
+                <div class="form-group">
+                    <label for="companyName"><img src="https://img.icons8.com/ios-filled/50/000000/company.png"
+                            alt="Company"> Company Name</label>
+                    <input type="text" id="companyName" name="companyName" placeholder="Enter your company name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="businessType"><img src="https://img.icons8.com/ios-filled/50/000000/business.png"
+                            alt="Business Type"> Business Type</label>
+                    <select id="businessType" name="businessType" required>
+                        <option value="">Select Business Type</option>
+                        <option value="manufacturer">Supplier</option>
+
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="GstIN"><img src="https://img.icons8.com/ios-filled/50/000000/tax.png" alt="GST IN"> GST
+                        IN</label>
+                    <input type="text" id="GstIN" name="taxId" placeholder="Enter your GST IN" required>
+					<small id="gstError" style="color: red; display: none;"></small>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="address"><img src="https://img.icons8.com/ios-filled/50/000000/address.png"
+                            alt="Address"> Business Address</label>
+                    <textarea id="address" name="address" placeholder="Enter your business address" rows="3"
+                        required></textarea>
+                </div>
+
+                <div class="button-group">
+                    <button type="button" onclick="prevStep()">Back</button> 
+                    <button type="submit">Signup</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+   <script>
+    let currentStep = 1;
+
+    function updateProgressBar() {
+        const progress = document.getElementById('progress');
+        const progressPercentage = (currentStep / 2) * 100;
+        progress.style.width = progressPercentage + '%';
+    }
+
+    function showError(inputId, errorId, message) {
+        document.getElementById(errorId).textContent = message;
+        document.getElementById(errorId).style.display = message ? 'block' : 'none';
+    }
+
+    function validateEmail() {
+        const email = document.getElementById('email').value.trim();
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const isValid = emailPattern.test(email);
+        showError('email', 'emailError', isValid ? '' : 'Please enter a valid email address.');
+        return isValid;
+    }
+
+    function validatePassword() {
+        const password = document.getElementById('password').value.trim();
+        const passwordPattern = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/;
+        const isValid = passwordPattern.test(password);
+        showError('password', 'passwordError', isValid ? '' : 'Password must be at least 8 characters and include letters and numbers.');
+        return isValid;
+    }
+
+    function validatePhone() {
+        const phone = document.getElementById('phone').value.trim();
+        const phonePattern = /^[0-9]{10}$/;
+        const isValid = phonePattern.test(phone);
+        showError('phone', 'phoneError', isValid ? '' : 'Phone number must be exactly 10 digits.');
+        return isValid;
+    }
+
+    
+    function validateGstin() {
+        const gstin = document.getElementById('GstIN').value.trim();
+        const gstPattern = /^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/;
+        const isValid = gstPattern.test(gstin);
+        showError('GstIN', 'gstError', isValid ? '' : 'Enter a valid GST IN (15 characters format).');
+        return isValid;
+    }
+
+    function nextStep() {
+        if (currentStep === 1) {
+            const isEmailValid = validateEmail();
+            const isPasswordValid = validatePassword();
+            const isPhoneValid = validatePhone();
+            if (!isEmailValid || !isPasswordValid || !isPhoneValid) return;
+        }
+
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep++;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+        updateProgressBar();
+    }
+
+
+    function prevStep() {
+        document.getElementById(`step${currentStep}`).classList.remove('active');
+        currentStep--;
+        document.getElementById(`step${currentStep}`).classList.add('active');
+        updateProgressBar();
+    }
+
+    document.getElementById('email').addEventListener('blur', validateEmail);
+    document.getElementById('password').addEventListener('blur', validatePassword);
+    document.getElementById('GstIN').addEventListener('blur', validateGstin);
+
+    document.getElementById('signupForm').addEventListener('submit', function (event) {
+        if (!validateGstin()) {
+            event.preventDefault();
+        }
+    });
+
+    updateProgressBar();
+</script>
+
+
+</body>
+
+</html>
