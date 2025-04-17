@@ -1,20 +1,46 @@
-# Ignore Maven target directories (build output)
+# Maven specific
 target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
 
-# Eclipse project files
-*.classpath
-*.project
+# Eclipse specific
+.classpath
+.project
 .settings/
 
-# Ignore log files
+# IntelliJ IDEA specific
+*.iml
+.idea/
+*.iws
+*.ipr
+out/
+
+# NetBeans specific
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+.nb-gradle/
+
+# VS Code
+.vscode/
+
+# OS specific
+.DS_Store
+Thumbs.db
+
+# Logs
 *.log
 
-# Ignore temporary files
-*.tmp
+# Tomcat deployment files (if generated)
+*.war
 
-# Ignore OS-specific files
-.DS_Store     # macOS
-Thumbs.db     # Windows
-
-# Ignore Maven wrapper files (if using Maven wrapper)
-.mvn/
+# Environment
+.env
