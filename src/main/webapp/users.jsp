@@ -244,7 +244,12 @@
                                             <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
                                                 class="px-6 py-2 bg-blue-600 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
                                                 data-role="supplier" id="el-g9jvvap8">
-                                                Select Supplier
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -306,10 +311,15 @@
                                             </li>
                                         </ul>
                                         <div class="flex justify-center" id="el-ot1pqk3t">
-                                            <button onclick="window.location.href='${pageContext.request.contextPath}/manufacturer/login.html'"
+                                            <button onclick="window.location.href='${pageContext.request.contextPath}/manufacturer/login.jsp'"
                                                 class="px-6 py-2 bg-indigo-600 text-white rounded-md shadow hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50"
                                                 data-role="manufacturer" id="el-gzgzhg86">
-                                                Select Manufacturer
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -374,7 +384,12 @@
                                             <button onclick="window.location.href='${pageContext.request.contextPath}/warehouse/login.html'"
                                                 class="px-6 py-2 bg-yellow-600 text-white rounded-md shadow hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-opacity-50"
                                                 data-role="warehouse" id="el-hrnpej1w">
-                                                Select Warehouse Manager
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -438,7 +453,12 @@
                                             <button onclick="window.location.href='${pageContext.request.contextPath}/transport/login.html'"
                                                 class="px-6 py-2 bg-green-600 text-white rounded-md shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-opacity-50"
                                                 data-role="transporter" id="el-84xsbt04">
-                                                Select Transporter
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -502,7 +522,12 @@
                                             <button onclick="window.location.href='${pageContext.request.contextPath}/wholeseller/login.html'"
                                                 class="px-6 py-2 bg-purple-600 text-white rounded-md shadow hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-opacity-50"
                                                 data-role="wholesaler" id="el-sb5wcgo0">
-                                                Select Wholesaler
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -566,7 +591,12 @@
                                             <button onclick="window.location.href='${pageContext.request.contextPath}/retailer/login.html'"
                                                 class="px-6 py-2 bg-red-600 text-white rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-opacity-50"
                                                 data-role="retailer" id="el-lkxr8kvj">
-                                                Select Retailer
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -630,7 +660,12 @@
                                             <button onclick="window.location.href='${pageContext.request.contextPath}/accountant/login.html'"
                                                 class="px-6 py-2 bg-gray-600 text-white rounded-md shadow hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
                                                 data-role="accountant" id="el-qol9tep6">
-                                                Select Accountant
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
@@ -695,7 +730,12 @@
                                             <button
                                                 class="px-6 py-2 bg-teal-600 text-white rounded-md shadow hover:bg-teal-700 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-opacity-50"
                                                 data-role="administrator" id="el-o2lp5vt6">
-                                                Select Administrator
+                                                Login
+                                            </button>
+                                            <button  onclick="window.location.href='${pageContext.request.contextPath}/supplier/login.html'"
+                                                class="px-6 py-2 bg-red-500 text-white rounded-md shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                                data-role="supplier" id="el-g9jvvap8" style="margin-left:10px">
+                                                Sign Up
                                             </button>
                                         </div>
                                     </div>
