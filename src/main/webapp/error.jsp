@@ -34,9 +34,9 @@
 
         /* Cartoon character animation */
         .cartoon-character {
-            width: 120px;
-            height: 120px;
-            background: url('https://i.imgur.com/7gM1KrT.png') no-repeat center center;
+            width: 250px;
+            height: 250px;
+            background: url('${pageContext.request.contextPath}/img/sad.png') no-repeat center center;
             background-size: contain;
             margin: 30px;
             animation: float 2s ease-in-out infinite;
